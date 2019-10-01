@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-30T13:08:48&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-30T13:08:48&#43;08:00" />
-<meta itemprop="wordCount" content="11932">
+<meta itemprop="wordCount" content="11967">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-09-30 13:08 </span>
         
-          <span class="more-meta"> 约 11932 字 </span>
+          <span class="more-meta"> 约 11967 字 </span>
           <span class="more-meta"> 预计阅读 24 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -2290,7 +2290,7 @@ BBB	1</pre></td></tr></table>
 
 <ul>
 <li>AbortPolicy：处理程序遭到拒绝将抛出运行时 RejectedExecutionException</li>
-<li>CallerRunsPolicy：线程调用运行该任务的 execute 本身。此策略提供简单的反馈控制机制，能够减缓新任务的提交速度。</li>
+<li>CallerRunsPolicy：线程调用运行该任务的 execute 本身。此策略提供简单的反馈控制机制，能够减缓新任务的提交速度。（<strong>回退回去执行，谁让你来找我的。</strong>）</li>
 <li>DiscardPolicy：不能执行的任务将被删除</li>
 <li>DiscardOldestPolicy：如果执行程序尚未关闭，则位于工作队列头部的任务将被删除，然后重试执行程序（如果再次失败，则重复此过程）</li>
 </ul></li>
@@ -2341,6 +2341,10 @@ BBB	1</pre></td></tr></table>
 </div>
 <h3 id="合理配置线程池你是如果考虑的">合理配置线程池你是如果考虑的？</h3>
 
+<p>先调用下面方法，获取CPU核心数。</p>
+
+<p><code>System.out.println(Runtime.getRuntime().availableProcessors());</code></p>
+
 <ul>
 <li>CPU 密集型
 
@@ -2362,7 +2366,7 @@ BBB	1</pre></td></tr></table>
 <li><p>产生死锁的原因</p>
 
 <ul>
-<li>死锁是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种相互等待的现象，如果无外力的干涉那它们都将无法推进下去，如果系统的资源充足，进程的资源请求都能够得到满足，死锁出现的可能性就很低，否则就会因争夺有限的资源而陷入死锁。</li>
+<li>死锁是指两个或两个以上的进程在执行过程中，<strong>因争夺资源而造成的一种相互等待的现象</strong>，如果无外力的干涉那它们都将无法推进下去，如果系统的资源充足，进程的资源请求都能够得到满足，死锁出现的可能性就很低，否则就会因争夺有限的资源而陷入死锁。</li>
 </ul></li>
 
 <li><p>代码</p>
@@ -2573,7 +2577,7 @@ Found 1 deadlock.</pre></td></tr></table>
       <nav class="post-nav">
         <a class="prev" href="/post/jvm%E9%9D%A2%E8%AF%95/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">JVM</span>
+            <span class="prev-text nav-default">JVM面试</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
