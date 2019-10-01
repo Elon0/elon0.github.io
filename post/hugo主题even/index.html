@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-01T02:52:42&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-01T02:52:42&#43;08:00" />
-<meta itemprop="wordCount" content="856">
+<meta itemprop="wordCount" content="960">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-10-01 02:52 </span>
         
-          <span class="more-meta"> 约 856 字 </span>
+          <span class="more-meta"> 约 960 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -145,6 +145,7 @@
 <li><a href="#介绍">介绍</a></li>
 <li><a href="#准备">准备</a></li>
 <li><a href="#安装">安装</a></li>
+<li><a href="#自动发布脚本">自动发布脚本</a></li>
 <li><a href="#定制">定制</a>
 <ul>
 <li><a href="#首页">首页</a></li>
@@ -270,6 +271,63 @@ git push -u origin master
 输入用户名密码
 
 结束</pre></td></tr></table>
+</div>
+</div>
+<h2 id="自动发布脚本">自动发布脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nb">echo</span> <span class="s2">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
+
+<span class="c1"># Build the project.</span>
+<span class="c1">#hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`</span>
+hugo --baseUrl<span class="o">=</span><span class="s2">&#34;https://elon0.github.io&#34;</span> --buildDrafts
+
+<span class="c1"># Go To Public folder</span>
+<span class="nb">cd</span> public
+<span class="c1"># Add changes to git.</span>
+git add -A
+
+<span class="c1"># Commit changes.</span>
+<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;rebuilding site `date`&#34;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+<span class="k">fi</span>
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+
+<span class="c1"># Push source and build repos.</span>
+git push origin master
+
+<span class="c1"># Come Back</span>
+<span class="nb">cd</span> ..</code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="定制">定制</h2>
