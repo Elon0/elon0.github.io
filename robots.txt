@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://elon0.github.io/sitemap.xml

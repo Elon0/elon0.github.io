@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Elon的blog</title>
+    <link>https://elon0.github.io/post/</link>
+    <description>Recent content in Posts on Elon的blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 01 Oct 2019 02:52:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://elon0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hugo主题Even</title>
+      <link>https://elon0.github.io/post/hugo%E4%B8%BB%E9%A2%98even/</link>
+      <pubDate>Tue, 01 Oct 2019 02:52:42 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/hugo%E4%B8%BB%E9%A2%98even/</guid>
+      <description>介绍 用 olOwOlo/hugo-theme-even 来作模板，主要是自带文章目录。 准备 如果需要修改主题，那么需要安装 node 与 yarn 构建。 1 2 3 4 5 6 7 8 brew install node brew install yarn cd ./themes/even/ # install dependencies yarn install # build yarn build 发现执</description>
+    </item>
+    
+    <item>
+      <title>JVM</title>
+      <link>https://elon0.github.io/post/jvm%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Mon, 30 Sep 2019 14:22:00 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/jvm%E9%9D%A2%E8%AF%95/</guid>
+      <description>JVM 面试 JVM 垃圾回收的时候如何确定垃圾？知道什么是 GC Roots ? 什么是垃圾 简单来说就是内存中已经不在被使用到的空间就是垃圾 要进行垃圾回收，如何判断一个对</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程</title>
+      <link>https://elon0.github.io/post/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Mon, 30 Sep 2019 13:08:48 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <description>Java 并发编程 请谈谈你对 volatile 的理解 volatile 是 Java 虚拟机提供的轻量级的同步机制 保证可见性 禁止指令排序 不保证原子性 JMM（Java 内存模型） 你谈谈 基本概念 JMM 本</description>
+    </item>
+    
+  </channel>
+</rss>
