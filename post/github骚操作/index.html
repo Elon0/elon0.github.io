@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>GitHub骚操作 - Elon的blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Elon" /><meta name="description" content="1 开启 1 面试题 2 如何找到优秀的源码&#43;进行深度的框架解读&#43;学习其他高手的代码&#43;自己共享贡献 2 常用词 watch：会持续收到该项目的动态 fork：" /><meta name="keywords" content="Java, MySQL, Redis, Spring, Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.58.3 with theme even" />
+
+
+<link rel="canonical" href="https://elon0.github.io/post/github%E9%AA%9A%E6%93%8D%E4%BD%9C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.d314b528.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="GitHub骚操作" />
+<meta property="og:description" content="1 开启 1 面试题 2 如何找到优秀的源码&#43;进行深度的框架解读&#43;学习其他高手的代码&#43;自己共享贡献 2 常用词 watch：会持续收到该项目的动态 fork：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://elon0.github.io/post/github%E9%AA%9A%E6%93%8D%E4%BD%9C/" />
+<meta property="article:published_time" content="2019-10-02T03:08:07+08:00" />
+<meta property="article:modified_time" content="2019-10-02T03:08:07+08:00" />
+<meta itemprop="name" content="GitHub骚操作">
+<meta itemprop="description" content="1 开启 1 面试题 2 如何找到优秀的源码&#43;进行深度的框架解读&#43;学习其他高手的代码&#43;自己共享贡献 2 常用词 watch：会持续收到该项目的动态 fork：">
+
+
+<meta itemprop="datePublished" content="2019-10-02T03:08:07&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-02T03:08:07&#43;08:00" />
+<meta itemprop="wordCount" content="585">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GitHub骚操作"/>
+<meta name="twitter:description" content="1 开启 1 面试题 2 如何找到优秀的源码&#43;进行深度的框架解读&#43;学习其他高手的代码&#43;自己共享贡献 2 常用词 watch：会持续收到该项目的动态 fork："/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Elon的blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Elon的blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">GitHub骚操作</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-02 03:08 </span>
+        
+          <span class="more-meta"> 约 585 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1-开启">1 开启</a></li>
+<li><a href="#2-常用词">2 常用词</a></li>
+<li><a href="#3-in限制搜索">3 in限制搜索</a>
+<ul>
+<li>
+<ul>
+<li><a href="#公式">公式</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#4-star和fork范围搜索">4 star和fork范围搜索</a>
+<ul>
+<li>
+<ul>
+<li><a href="#公式-1">公式</a></li>
+<li><a href="#组合使用">组合使用</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#5-awesome搜索">5 awesome搜索</a>
+<ul>
+<li>
+<ul>
+<li><a href="#公式-2">公式</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#6-l数字-高亮显示某一行代码">6 #L数字 高亮显示某一行代码</a>
+<ul>
+<li>
+<ul>
+<li><a href="#公式-3">公式</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#7-t搜索-项目内搜索">7 T搜索 项目内搜索</a></li>
+<li><a href="#8-搜索区域活跃用户">8 搜索区域活跃用户</a>
+<ul>
+<li>
+<ul>
+<li><a href="#公式-4">公式</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="1-开启">1 开启</h2>
+
+<p>1 面试题</p>
+
+<p>2 如何找到优秀的源码+进行深度的框架解读+学习其他高手的代码+自己共享贡献</p>
+
+<h2 id="2-常用词">2 常用词</h2>
+
+<p>watch：会持续收到该项目的动态</p>
+
+<p>fork：复制某个项目到自己的github仓库中</p>
+
+<p>star：可以理解为点赞</p>
+
+<p>clone：将项目下载至本地</p>
+
+<p>follow：关注你感兴趣的作者，会收到他们的动态</p>
+
+<h2 id="3-in限制搜索">3 in限制搜索</h2>
+
+<blockquote>
+<p>做一个秒杀系统，简单版</p>
+</blockquote>
+
+<h4 id="公式">公式</h4>
+
+<p>xxx关键词 in:name或description或readme</p>
+
+<p>xxx in:name 项目名包含xxx的</p>
+
+<p>xxx in:description  项目描述包含xxx的</p>
+
+<p>xxx in:readme   项目的readme文件中包含xxx的</p>
+
+<p>组合使用 seckill in:name,readme</p>
+
+<h2 id="4-star和fork范围搜索">4 star和fork范围搜索</h2>
+
+<h4 id="公式-1">公式</h4>
+
+<p>xxx关键字 stars 通配符    <code>:&gt;或者:&gt;=</code></p>
+
+<p>区间范围数字  数字1..数字2</p>
+
+<blockquote>
+<p>查找stars数大于等于5000的springboot项目 <code>springboot stars:&gt;=5000</code></p>
+
+<p>查找forks数大于500的springcloud项目   <code>springcloud forks:&gt;500</code></p>
+</blockquote>
+
+<h4 id="组合使用">组合使用</h4>
+
+<blockquote>
+<p>查找fork在100到200之间并且stars数在80到100之间的springboot项目</p>
+
+<p><code>springboot forks:100..200 stars:80..100</code></p>
+</blockquote>
+
+<h2 id="5-awesome搜索">5 awesome搜索</h2>
+
+<h4 id="公式-2">公式</h4>
+
+<p>awesome 关键字 `<code>awesome系列一般用来收集学习、工具、书籍类相关的项目</code></p>
+
+<blockquote>
+<p>搜索优秀的redis相关的项目，包括框架、教程等</p>
+</blockquote>
+
+<h2 id="6-l数字-高亮显示某一行代码">6 #L数字 高亮显示某一行代码</h2>
+
+<h4 id="公式-3">公式</h4>
+
+<p>一行  地址后面紧跟#L数字</p>
+
+<p>多行  地址后面紧跟#L数字-L数字2</p>
+
+<blockquote>
+<p><a href="https://github.com/Elon0/mmall/blob/master/src/main/java/com/mmall/common/ServerResponse.java#L17-L19">https://github.com/Elon0/mmall/blob/master/src/main/java/com/mmall/common/ServerResponse.java#L17-L19</a></p>
+</blockquote>
+
+<h2 id="7-t搜索-项目内搜索">7 T搜索 项目内搜索</h2>
+
+<p>英文t</p>
+
+<p><a href="https://help.github.com/en/articles/keyboard-shortcuts">https://help.github.com/en/articles/keyboard-shortcuts</a></p>
+
+<h2 id="8-搜索区域活跃用户">8 搜索区域活跃用户</h2>
+
+<h4 id="公式-4">公式</h4>
+
+<p>location:地区</p>
+
+<p>language:语言</p>
+
+<blockquote>
+<p>地区北京的Java方向的用户    <code>location:beijing language:java</code></p>
+</blockquote>
+
+<script src="https://utteranc.es/client.js"
+        repo="elon0/comment"
+        issue-term="pathname"
+        label="💬"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Elon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-02 03:08
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/hugo%E4%B8%BB%E9%A2%98even/">
+            <span class="next-text nav-default">Hugo主题Even</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Elon0" class="iconfont icon-github" title="github"></a>
+  <a href="https://elon0.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Elon</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

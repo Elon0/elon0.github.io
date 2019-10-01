@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Elon的blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 01 Oct 2019 02:52:42 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 02 Oct 2019 03:08:07 +0800</lastBuildDate>
     
 	<atom:link href="https://elon0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GitHub骚操作</title>
+      <link>https://elon0.github.io/post/github%E9%AA%9A%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 02 Oct 2019 03:08:07 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/github%E9%AA%9A%E6%93%8D%E4%BD%9C/</guid>
+      <description>1 开启 1 面试题 2 如何找到优秀的源码+进行深度的框架解读+学习其他高手的代码+自己共享贡献 2 常用词 watch：会持续收到该项目的动态 fork：</description>
+    </item>
     
     <item>
       <title>Hugo主题Even</title>
