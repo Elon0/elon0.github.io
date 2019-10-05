@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-30T14:22:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-30T14:22:00&#43;08:00" />
-<meta itemprop="wordCount" content="8647">
+<meta itemprop="wordCount" content="8629">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-09-30 14:22 </span>
         
-          <span class="more-meta"> 约 8647 字 </span>
+          <span class="more-meta"> 约 8629 字 </span>
           <span class="more-meta"> 预计阅读 18 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -542,9 +542,9 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 </ul>
 
 <blockquote>
-<p><strong>当系统内存充足时它   不会  被回收，</strong></p>
+<p>​ <strong>当系统内存充足时它 不会  被回收，</strong></p>
 
-<p><strong>当系统内存充足时它   会       被回收。</strong></p>
+<p>​ <strong>当系统内存充足时它 会       被回收。</strong></p>
 </blockquote>
 
 <ul>
@@ -569,11 +569,10 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 </blockquote>
 
 <ul>
-<li><p>代码验证
-我设置 JVM 参数为 <code>-Xms10m -Xmx10m -XX:+PrintGCDetails</code></p>
+<li><p>代码验证</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -590,30 +589,31 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span></pre></td>
+</span><span class="lnt">18
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">public class SoftReferenceDemo {
-public static void main(String[] args) {
-    Object obj = new Object();
-    SoftReference&lt;Object&gt; softReference = new SoftReference&lt;&gt;(obj);
-    obj = null;
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//我设置 JVM 参数为 -Xms10m -Xmx10m -XX:+PrintGCDetails
+</span><span class="c1"></span><span class="kd">public</span> <span class="nf">class</span> <span class="n">SoftReferenceDemo</span> <span class="p">{</span>
+  <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+      <span class="n">SoftReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">softReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SoftReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+      <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
     
-    try {
-        // 分配 20 M
-        byte[] bytes = new byte[20 * 1024 * 1024];
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        System.out.println(&#34;软引用：&#34; + softReference.get());
-    }
+      <span class="k">try</span> <span class="p">{</span>
+          <span class="c1">// 分配 20 M
+</span><span class="c1"></span>          <span class="kt">byte</span><span class="p">[]</span> <span class="nf">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">20</span> <span class="o">*</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="p">];</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+      <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+          <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;软引用：&#34;</span> <span class="o">+</span> <span class="n">softReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+      <span class="p">}</span>
     
-}
-}</pre></td></tr></table>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div></li>
-</ul>
 
-<p>输出</p>
+<li><p>输出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -642,18 +642,20 @@ public static void main(String[] args) {
 [Full GC (Allocation Failure) [PSYoungGen: 0K-&gt;0K(2560K)] [ParOldGen: 358K-&gt;340K(7168K)] 358K-&gt;340K(9728K), [Metaspace: 3030K-&gt;3030K(1056768K)], 0.0115080 secs] [Times: user=0.01 sys=0.00, real=0.01 secs] 
 软引用：null
 Exception in thread &#34;main&#34; java.lang.OutOfMemoryError: Java heap space
-    at com.cuzz.jvm.SoftReferenceDemo.main(SoftReferenceDemo.java:21)
+	at com.cuzz.jvm.SoftReferenceDemo.main(SoftReferenceDemo.java:21)
 Heap
- PSYoungGen      total 2560K, used 98K [0x00000000ffd00000, 0x0000000100000000, 0x0000000100000000)
-  eden space 2048K, 4% used [0x00000000ffd00000,0x00000000ffd18978,0x00000000fff00000)
-  from space 512K, 0% used [0x00000000fff00000,0x00000000fff00000,0x00000000fff80000)
-  to   space 512K, 0% used [0x00000000fff80000,0x00000000fff80000,0x0000000100000000)
- ParOldGen       total 7168K, used 340K [0x00000000ff600000, 0x00000000ffd00000, 0x00000000ffd00000)
-  object space 7168K, 4% used [0x00000000ff600000,0x00000000ff6552f8,0x00000000ffd00000)
- Metaspace       used 3067K, capacity 4496K, committed 4864K, reserved 1056768K
-  class space    used 336K, capacity 388K, committed 512K, reserved 1048576K</pre></td></tr></table>
+PSYoungGen      total 2560K, used 98K [0x00000000ffd00000, 0x0000000100000000, 0x0000000100000000)
+eden space 2048K, 4% used [0x00000000ffd00000,0x00000000ffd18978,0x00000000fff00000)
+from space 512K, 0% used [0x00000000fff00000,0x00000000fff00000,0x00000000fff80000)
+to   space 512K, 0% used [0x00000000fff80000,0x00000000fff80000,0x0000000100000000)
+ParOldGen       total 7168K, used 340K [0x00000000ff600000, 0x00000000ffd00000, 0x00000000ffd00000)
+object space 7168K, 4% used [0x00000000ff600000,0x00000000ff6552f8,0x00000000ffd00000)
+Metaspace       used 3067K, capacity 4496K, committed 4864K, reserved 1056768K
+class space    used 336K, capacity 388K, committed 512K, reserved 1048576K</pre></td></tr></table>
 </div>
-</div>
+</div></li>
+</ul>
+
 <p>发现当内存不够的时候就会被回收。</p></li>
 
 <li><p>弱引用</p>
@@ -686,25 +688,24 @@ Heap
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">WeakReferenceDemo</span> <span class="p">{</span>
-<span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
-    <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">weakReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+        <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">weakReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
     
-    <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">gc</span><span class="p">();</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;GC之后....&#34;</span><span class="p">);</span>
-            
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-<span class="p">}</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">gc</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;GC之后....&#34;</span><span class="p">);</span>
+    
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+    <span class="p">}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div></li>
-</ul>
 
-<p>输出</p>
+<li><p>输出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -720,11 +721,11 @@ GC之后....
 null
 null</pre></td></tr></table>
 </div>
-</div>
-<p>值得注意的是<code>String name = &quot;cuzz&quot;</code> 这种会放入永久代，以及 <code>Integer age = 1</code> 在 int 中 -128 到 127 会被缓存，所以是强引用，然后 GC 也不会被回收。</p>
+</div></li>
 
-<ul>
-<li>引用队列</li>
+<li><p>值得注意的是<code>String name = &quot;cuzz&quot;</code> 这种会放入永久代，以及 <code>Integer age = 1</code> 在 int 中 -128 到 127 会被缓存，所以是强引用，然后 GC 也不会被回收。</p></li>
+
+<li><p>引用队列</p></li>
 </ul>
 
 <p><strong>我在回收前需要被引用队列保存下。</strong></p>
@@ -857,9 +858,8 @@ java.lang.ref.WeakReference@5451c3a8</pre></td></tr></table>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div></li>
-</ul>
 
-<p>输出</p>
+<li><p>输出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
@@ -880,6 +880,7 @@ null
 java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 </div>
 </div></li>
+</ul></li>
 
 <li><p><strong>总结</strong></p></li>
 </ul>
@@ -1007,10 +1008,10 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
   [GC (System.gc()) [PSYoungGen: 1315K-&gt;464K(2560K)] 1315K-&gt;472K(9728K), 0.0008907 secs] [Times: user=0.00 sys=0.00, real=0.01 secs] 
   [Full GC (System.gc()) [PSYoungGen: 464K-&gt;0K(2560K)] [ParOldGen: 8K-&gt;359K(7168K)] 472K-&gt;359K(9728K), [Metaspace: 3037K-&gt;3037K(1056768K)], 0.0060466 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
   Exception in thread &#34;main&#34; java.lang.OutOfMemoryError: Direct buffer memory
-    at java.nio.Bits.reserveMemory(Bits.java:694)
-    at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:123)
-    at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:311)
-    at com.cuzz.jvm.DirectBufferDemo.main(DirectBufferDemo.java:17)
+  	at java.nio.Bits.reserveMemory(Bits.java:694)
+  	at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:123)
+  	at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:311)
+  	at com.cuzz.jvm.DirectBufferDemo.main(DirectBufferDemo.java:17)
   Heap
    PSYoungGen      total 2560K, used 56K [0x00000000ffd00000, 0x0000000100000000, 0x0000000100000000)
     eden space 2048K, 2% used [0x00000000ffd00000,0x00000000ffd0e170,0x00000000fff00000)
@@ -1140,32 +1141,50 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 
 <p>ParNew， Heap {par new generation，tenured generation，Metaspace}</p>
 
-<p>Parallel Scavenge 新生代老年代都并行化， PSYoungGen，ParOldGen
-- 老年代
-  - 串行 GC (Serial Old/ Serial MSC)
-  - 并行 GC (Parallel Old/ Parallel MSC)
-  - 并发标记清除 GC (CMS)
-    - <strong>是一种以获取最短回收停顿时间为目标的收集器</strong>，适合应用在互联网站或者 B/S 系统的服务器上，这个类应用尤其重视服务器的响应速度，<strong>希望系统停顿时间最短</strong>。
-    - CMS 非常适合堆内存大、CPU 核数多的服务器端应用，也是 G1 出现之前大型应用首选收集器。
-    - <strong>并发停顿比较少，并发指的是与用户线程一起执行。</strong>
-    - 过程
-      - 初始标记（initial mark）：只是标记一下 GC Roots 能直接关联的对象，速度很快，需要暂停所有的工作线程
-      - 并发标记（concurrent mark 和用户线程一起）：进行 GC Roots 的跟踪过程，和用户线程一起工作，不需要暂停工作线程。
-      - 重新标记（remark）：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。
-      - 并发清除（concurrent sweep 和用户线程一起）：清除 GC Roots不可达对象，和用户线程一起工作，不需要暂停工作线程，基于标记结果，直接清除。由于耗时最长的并发标记和并发清除过程中，垃圾收集线程和用户线程可以一起并发工作，所以总体来看 CMS 收集器的内存回收和用户线程是一起并发地执行。
-    - 优缺点
-      - 优点：并发收集停顿低
-      - 缺点：并发执行对 CPU 资源压力大，采用的标记清除算法会导致大量碎片
-    - 由于并发进行， CMS 在收集与应用线程会同时增加对堆内存的占用，也就是说，CMS 必须要在老年代堆用尽之前完成垃圾回收，否者 CMS 回收失败，抛出“Concurrent Mode Failure”，JVM临时启用串行老年代收集器将会以 STW 的方式进行一次 GC，从而造成较大的停顿时间。
-    - 标记清除算法无法整理空间碎片，老年代空间会随着应用时长被逐渐耗尽，最后将不得不通过担保机制对堆内存进行压缩。CMS 也提供了参数 -XX:CMSFullGCsBeForeCompaction (默认0，即每次都进行内存整理) 来指定多少次 CMS 收集之后，进行一次压
-- 垃圾收集器配置代码总结
-  - 配置新生代收集器，老年代收集器会自动配置上。
-    <a href="http://blog.cuzz.site/2019/05/10/JVM面试/1558237229584.png"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/1558237229584.png" alt="1558237229584" /></a>
-- 如何选择垃圾收集器
-  - 单 CPU 或者小内存，单机程序：-XX:UseSerialGC
-  - 多 CPU 需要最大吞吐量，如后台计算型应用：-XX:UseParallelGC 或者 -XX:UseParallelOldGC
-  - 多 CPU 追求低停顿时间，需要快速响应，如互联网应用：-XX:+UseConcMarkSweepGC</p>
+<p>Parallel Scavenge 新生代老年代都并行化， PSYoungGen，ParOldGen</p>
 </blockquote>
+
+<ul>
+<li>老年代
+
+<ul>
+<li>串行 GC (Serial Old/ Serial MSC)</li>
+<li>并行 GC (Parallel Old/ Parallel MSC)</li>
+<li>并发标记清除 GC (CMS)</li>
+<li><strong>是一种以获取最短回收停顿时间为目标的收集器</strong>，适合应用在互联网站或者 B/S 系统的服务器上，这个类应用尤其重视服务器的响应速度，<strong>希望系统停顿时间最短</strong>。</li>
+<li>CMS 非常适合堆内存大、CPU 核数多的服务器端应用，也是 G1 出现之前大型应用首选收集器。</li>
+<li><strong>并发停顿比较少，并发指的是与用户线程一起执行。</strong></li>
+<li>过程
+
+<ul>
+<li>初始标记（initial mark）：只是标记一下 GC Roots 能直接关联的对象，速度很快，需要暂停所有的工作线程</li>
+<li>并发标记（concurrent mark 和用户线程一起）：进行 GC Roots 的跟踪过程，和用户线程一起工作，不需要暂停工作线程。</li>
+<li>重新标记（remark）：为了修正在并发标记期间，因用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，仍然需要暂停所有的工作线程。</li>
+<li>并发清除（concurrent sweep 和用户线程一起）：清除 GC Roots不可达对象，和用户线程一起工作，不需要暂停工作线程，基于标记结果，直接清除。由于耗时最长的并发标记和并发清除过程中，垃圾收集线程和用户线程可以一起并发工作，所以总体来看 CMS 收集器的内存回收和用户线程是一起并发地执行。</li>
+</ul></li>
+<li>优缺点
+
+<ul>
+<li>优点：并发收集停顿低</li>
+<li>缺点：并发执行对 CPU 资源压力大，采用的标记清除算法会导致大量碎片</li>
+</ul></li>
+<li>由于并发进行， CMS 在收集与应用线程会同时增加对堆内存的占用，也就是说，CMS 必须要在老年代堆用尽之前完成垃圾回收，否者 CMS 回收失败，抛出“Concurrent Mode Failure”，JVM临时启用串行老年代收集器将会以 STW 的方式进行一次 GC，从而造成较大的停顿时间。</li>
+<li>标记清除算法无法整理空间碎片，老年代空间会随着应用时长被逐渐耗尽，最后将不得不通过担保机制对堆内存进行压缩。CMS 也提供了参数 -XX:CMSFullGCsBeForeCompaction (默认0，即每次都进行内存整理) 来指定多少次 CMS 收集之后，进行一次压</li>
+</ul></li>
+<li>垃圾收集器配置代码总结
+
+<ul>
+<li>配置新生代收集器，老年代收集器会自动配置上。
+<a href="http://blog.cuzz.site/2019/05/10/JVM面试/1558237229584.png"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/1558237229584.png" alt="1558237229584" /></a></li>
+</ul></li>
+<li>如何选择垃圾收集器
+
+<ul>
+<li>单 CPU 或者小内存，单机程序：-XX:UseSerialGC</li>
+<li>多 CPU 需要最大吞吐量，如后台计算型应用：-XX:UseParallelGC 或者 -XX:UseParallelOldGC</li>
+<li>多 CPU 追求低停顿时间，需要快速响应，如互联网应用：-XX:+UseConcMarkSweepGC</li>
+</ul></li>
+</ul>
 
 <h2 id="g1-垃圾收集器你了解吗">G1 垃圾收集器你了解吗？</h2>
 
