@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-10-04T22:14:01&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-04T22:14:01&#43;08:00" />
-<meta itemprop="wordCount" content="1371">
+<meta itemprop="wordCount" content="1369">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-10-04 22:14 </span>
         
-          <span class="more-meta"> 约 1371 字 </span>
+          <span class="more-meta"> 约 1369 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -142,7 +142,8 @@
 <ul>
 <li><a href="#高并发实现">高并发实现:</a>
 <ul>
-<li><a href="#集成redis">集成redis:</a>
+<li><a href="#集成redis">集成redis:</a></li>
+<li><a href="#两次md5">两次MD5：</a>
 <ul>
 <li><a href="#redis-预减库存减少对数据库访问">Redis 预减库存减少对数据库访问</a></li>
 <li><a href="#内存标记减少redis访问">内存标记减少Redis访问</a></li>
@@ -166,7 +167,7 @@
 <h1 id="高并发实现">高并发实现:</h1>
 
 <p>##用到的技术
-<a href="https://github.com/dcg123/miaosha/blob/master/src/main/resources/static/img/technical.png"><img src="https://github.com/dcg123/miaosha/raw/master/src/main/resources/static/img/technical.png" alt="img" /></a></p>
+<img src="https://raw.githubusercontent.com/Elon0/img/master/pictures/20191005130725.png" alt="" /></p>
 
 <p>##实现的模块</p>
 
@@ -179,9 +180,12 @@
 2:加载redis配置文件(RedisConfig 使用@ConfigurationProperties来读取配置文件)
 3:通过RedisConfig获取JedisPool池 把JedisPool注入到spring容器中 供RedisService使用
 4:为了防止多人开发项目下key被别人覆盖（同意使用前缀 不同模块使用不同的前缀 比如说用户模块使用用户模块的前缀）
-通过key封装结构：实现类-》抽象类-》接口
-##两次MD5：</p>
+通过key封装结构：实现类-》抽象类-》接口</p>
+</blockquote>
 
+<h2 id="两次md5">两次MD5：</h2>
+
+<blockquote>
 <p>1:用户端：PASS=MD5(明文+固定+Salt)
 2:服务端：PASS=MD5(用户输入+随机Salt)</p>
 </blockquote>
@@ -209,10 +213,11 @@
 <li>页面缓存+URL缓存+对象缓存</li>
 <li>页面静态化，前后端分离</li>
 <li>静态资源优化</li>
-<li>CDN优化
-页面缓存</li>
+<li>CDN优化</li>
 </ol>
 </blockquote>
+
+<p>页面缓存</p>
 
 <p><img src="https://raw.githubusercontent.com/Elon0/img/master/pictures/20191005131014.png" alt="img" /></p>
 
@@ -294,8 +299,6 @@
 3:请求入队，立即返回排队中
 4:请求出队，生成订单，减少库存
 5:客户端轮询，是否秒杀成功</p>
-
-<p><img src="https://raw.githubusercontent.com/Elon0/img/master/pictures/20191005130725.png" alt="" /></p>
 
 <script src="https://utteranc.es/client.js"
         repo="elon0/comment"
