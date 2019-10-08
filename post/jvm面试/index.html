@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-30T14:22:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-30T14:22:00&#43;08:00" />
-<meta itemprop="wordCount" content="8621">
+<meta itemprop="wordCount" content="8759">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-09-30 14:22 </span>
         
-          <span class="more-meta"> 约 8621 字 </span>
+          <span class="more-meta"> 约 8759 字 </span>
           <span class="more-meta"> 预计阅读 18 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -149,14 +149,14 @@
 <li><a href="#盘点家底查看-jvm-默认值">盘点家底查看 JVM 默认值</a></li>
 </ul></li>
 <li><a href="#你平时工作用过的-jvm-常用的基本配置参数有哪些">你平时工作用过的 JVM 常用的基本配置参数有哪些？</a></li>
-<li><a href="#强引用-软引用-弱引用和虚引用分别是什么">强引用、软引用、弱引用和虚引用分别是什么？</a></li>
+<li><a href="#强引用-软引用-弱引用和虚引用分别是什么">强引用、软引用、弱引用和虚引用分别是什么？</a>
+<ul>
+<li><a href="#总结">总结</a></li>
+</ul></li>
 <li><a href="#请谈谈你对-oom-的认识">请谈谈你对 OOM 的认识？</a></li>
 <li><a href="#gc-垃圾回收算法和垃圾收集器的关系-谈谈你的理解">GC 垃圾回收算法和垃圾收集器的关系？谈谈你的理解？</a></li>
 <li><a href="#怎么查看服务器默认垃圾收集器是哪个-生产是如何配置垃圾收集器-谈谈你对垃圾收集器的理解">怎么查看服务器默认垃圾收集器是哪个？生产是如何配置垃圾收集器？谈谈你对垃圾收集器的理解？</a></li>
-<li><a href="#g1-垃圾收集器你了解吗">G1 垃圾收集器你了解吗？</a>
-<ul>
-<li><a href="#region">Region</a></li>
-</ul></li>
+<li><a href="#g1-垃圾收集器你了解吗">G1 垃圾收集器你了解吗？</a></li>
 <li><a href="#jvmgc结合springboot微服务优化">JVMGC结合SpringBoot微服务优化</a></li>
 <li><a href="#生产环境服务器变慢-诊断思路和性能评估谈谈">生产环境服务器变慢，诊断思路和性能评估谈谈？</a></li>
 <li><a href="#假如生产环境出现-cpu-过高-请谈谈你的分析思路和定位">假如生产环境出现 CPU 过高，请谈谈你的分析思路和定位？</a></li>
@@ -264,19 +264,17 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">HelloGC</span> <span class="p">{</span>
-<span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;hello GC...&#34;</span><span class="p">);</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+  <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;hello GC...&#34;</span><span class="p">);</span>
+      <span class="k">try</span> <span class="p">{</span>
+          <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="nf">e</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <p>我们可以使用 <code>jps -l</code> 命令，查出进程 id</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -314,6 +312,7 @@
 <li><p><strong>-Xms 等价于 -XX:InitialHeapSize</strong></p></li>
 
 <li><p><strong>-Xmx 等价于 -XX:MaxHeapSize</strong></p></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -370,12 +369,9 @@ bool UsePerfData                               = true                           
 bool UsePopCountInstruction                    = true                                {product}
 bool UseRDPCForConstantTableBase               = false                               {C2 product}</pre></td></tr></table>
 </div>
-</div></li>
-</ul>
+</div>
+<p>= 与 := 的区别是，一个是默认，一个是人物改变或者 jvm 加载时改变的参数</p></li>
 
-<p>= 与 := 的区别是，一个是默认，一个是人物改变或者 jvm 加载时改变的参数</p>
-
-<ul>
 <li><p>打印命令行参数(可以看默认垃圾回收器)：-XX:+PrintCommandLineFlags</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -492,10 +488,10 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 </div>
 </div></li>
 
-<li><p>GC
+<li><p>GC<br>
 <a href="http://blog.cuzz.site/2019/05/10/JVM面试/a9a0eb99b30cf3fd8973f464eb4678bf50f760cc.jpg"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/a9a0eb99b30cf3fd8973f464eb4678bf50f760cc.jpg" alt="img" /></a></p></li>
 
-<li><p>FullGC
+<li><p>FullGC<br>
 <a href="http://blog.cuzz.site/2019/05/10/JVM面试/e04f3f3b68cff61027e5ba8eba9613bb7c69a08a.jpg"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/e04f3f3b68cff61027e5ba8eba9613bb7c69a08a.jpg" alt="img" /></a></p></li>
 </ul></li>
 
@@ -538,20 +534,17 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 <ul>
 <li><p>特点：软引用是一种相对强引用弱化了一些的引用，需要用<code>java.lang.ref.SoftReference</code>类来实现。</p></li>
 
-<li><p>对于只有软引用的对象来说，</p></li>
-</ul>
+<li><p>对于只有软引用的对象来说，</p>
 
 <blockquote>
 <p>​ <strong>当系统内存充足时它 不会  被回收，</strong></p>
 
 <p>​ <strong>当系统内存不足时它 会       被回收。</strong></p>
-</blockquote>
+</blockquote></li>
 
-<ul>
 <li><p>软引用通常用在内存敏感的程序中，比如高速缓存就有用到软引用，<strong>内存够用的时候就保留，不够用就回收！</strong></p></li>
 
-<li><p>应用场景：软引用通常用来实现内存敏感的缓存。如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉，这样就保证了使用缓存的同时，不会耗尽内存。</p></li>
-</ul>
+<li><p>应用场景：软引用通常用来实现内存敏感的缓存。如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉，这样就保证了使用缓存的同时，不会耗尽内存。</p>
 
 <blockquote>
 <p>假如有一个应用需要读取大量的本地图片：</p>
@@ -566,9 +559,8 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 <p>​ 设计思路是：用一个HashMap来保存图片的路径和相应图片对象关联的软引用之间的映射关系，在内存不足时，JVM会自动回收这些缓存图片对象所占用的空间，从而有效地避免了OOM问题。</p>
 
 <p><code>Map&lt;String, SoftReference&lt;Bitmap&gt;&gt; imageCache = new HashMap&lt;&gt;();</code></p>
-</blockquote>
+</blockquote></li>
 
-<ul>
 <li><p>代码验证</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -653,10 +645,9 @@ object space 7168K, 4% used [0x00000000ff600000,0x00000000ff6552f8,0x00000000ffd
 Metaspace       used 3067K, capacity 4496K, committed 4864K, reserved 1056768K
 class space    used 336K, capacity 388K, committed 512K, reserved 1048576K</pre></td></tr></table>
 </div>
-</div></li>
-</ul>
-
+</div>
 <p>发现当内存不够的时候就会被回收。</p></li>
+</ul></li>
 
 <li><p>弱引用</p>
 
@@ -724,79 +715,7 @@ null</pre></td></tr></table>
 </div></li>
 
 <li><p>值得注意的是<code>String name = &quot;cuzz&quot;</code> 这种会放入永久代，以及 <code>Integer age = 1</code> 在 int 中 -128 到 127 会被缓存，所以是强引用，然后 GC 也不会被回收。</p></li>
-
-<li><p>引用队列</p></li>
-</ul>
-
-<p><strong>我在回收前需要被引用队列保存下。</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">ReferenceQueueDemo</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">InterruptedException</span> <span class="p">{</span>
-        <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
-        <span class="n">ReferenceQueue</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">referenceQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReferenceQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
-        <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">weakReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">referenceQueue</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">referenceQueue</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
-    
-        <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">gc</span><span class="p">();</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">500</span><span class="p">);</span>
-    
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;GC之后....&#34;</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">referenceQueue</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
-        <span class="c1">//也就是gc后被放入引用队列了
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>输出</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">java.lang.Object@27c170f0
-java.lang.Object@27c170f0
-null
-GC之后....
-null
-null
-java.lang.ref.WeakReference@5451c3a8</pre></td></tr></table>
-</div>
-</div>
-<p>会把该对象的包装类即<code>weakReference</code>放入到<code>ReferenceQueue</code>里面，我们可以从queue中获取到相应的对象信息，同时进行额外的处理。比如反向操作，数据清理等。</p></li>
+</ul></li>
 
 <li><p>虚引用</p>
 
@@ -882,8 +801,80 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 </div></li>
 </ul></li>
 
-<li><p><strong>总结</strong></p></li>
+<li><p>引用队列</p>
+
+<p><strong>我在回收前需要被引用队列保存下。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">ReferenceQueueDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">InterruptedException</span> <span class="p">{</span>
+      <span class="n">Object</span> <span class="nf">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+        <span class="n">ReferenceQueue</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">referenceQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReferenceQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">WeakReference</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">weakReference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeakReference</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">referenceQueue</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">referenceQueue</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">gc</span><span class="p">();</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">500</span><span class="p">);</span>
+
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;GC之后....&#34;</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">weakReference</span><span class="p">.</span><span class="na">get</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">referenceQueue</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+        <span class="c1">//也就是gc后被放入引用队列了
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">java.lang.Object@27c170f0
+java.lang.Object@27c170f0
+null
+GC之后....
+null
+null
+java.lang.ref.WeakReference@5451c3a8</pre></td></tr></table>
+</div>
+</div>
+<p>会把该对象的包装类即<code>weakReference</code>放入到<code>ReferenceQueue</code>里面，我们可以从queue中获取到相应的对象信息，同时进行额外的处理。比如反向操作，数据清理等。</p></li>
 </ul>
+
+<h3 id="总结">总结</h3>
 
 <p>java提供了4种引用类型，在垃圾回收的时候，都有自己各自的特点。</p>
 
@@ -1054,7 +1045,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>标记清除</li>
 <li>标记整理</li>
 </ul></li>
-<li>GC 算法是内存回收的方法论，垃圾收集其就是算法的落实的实现。</li>
+<li>GC 算法是内存回收的方法论，垃圾收集就是算法的落地实现。</li>
 <li>目前为止还没有完美的收集器的出现，更加没有万能的收集器，只是针对具体应用最适合的收集器，进行分代收集。</li>
 <li>串行垃圾回收器（Serial）
 
@@ -1069,7 +1060,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>并发垃圾回收器（CMS）
 
 <ul>
-<li>用户线程和垃圾收集线程同时执行（不一定是并行，可能是交替执行），不需要停顿用户线程，互联网公司多用它，适用对相应时间有要求的场景。</li>
+<li>用户线程和垃圾收集线程同时执行（不一定是并行，可能是交替执行），不需要停顿用户线程，互联网公司多用它，适用对响应时间有要求的场景。</li>
 </ul></li>
 <li>G1 垃圾回收器
 
@@ -1094,7 +1085,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>Java 8 以后基本不使用 Serial Old</li>
 </ul></li>
 
-<li><p>垃圾收集器
+<li><p>垃圾收集器<br>
 <a href="http://blog.cuzz.site/2019/05/10/JVM面试/timg.jpg"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/timg.jpg" alt="timg" /></a></p></li>
 
 <li><p>参数说明</p>
@@ -1122,7 +1113,6 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>并行 GC (ParNew)</li>
 <li>并行回收 GC (Parallel/ Parallel Scavenge)
 <br /></li>
-</ul></li>
 </ul>
 
 <blockquote>
@@ -1131,10 +1121,9 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <p>ParNew， Heap {par new generation，tenured generation，Metaspace}</p>
 
 <p>Parallel Scavenge 新生代老年代都并行化， PSYoungGen，ParOldGen</p>
-</blockquote>
+</blockquote></li>
 
-<ul>
-<li>老年代
+<li><p>老年代</p>
 
 <ul>
 <li>串行 GC (Serial Old/ Serial MSC)</li>
@@ -1158,15 +1147,17 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>缺点：并发执行对 CPU 资源压力大，采用的标记清除算法会导致大量碎片</li>
 </ul></li>
 <li>由于并发进行， CMS 在收集与应用线程会同时增加对堆内存的占用，也就是说，CMS 必须要在老年代堆用尽之前完成垃圾回收，否者 CMS 回收失败，抛出“Concurrent Mode Failure”，JVM临时启用串行老年代收集器将会以 STW 的方式进行一次 GC，从而造成较大的停顿时间。</li>
-<li>标记清除算法无法整理空间碎片，老年代空间会随着应用时长被逐渐耗尽，最后将不得不通过担保机制对堆内存进行压缩。CMS 也提供了参数 -XX:CMSFullGCsBeForeCompaction (默认0，即每次都进行内存整理) 来指定多少次 CMS 收集之后，进行一次压</li>
+<li>标记清除算法无法整理空间碎片，老年代空间会随着应用时长被逐渐耗尽，最后将不得不通过担保机制对堆内存进行压缩。CMS提供了一个-XX:UseCompactAtFullCollection开关参数（默认开启），用于在CMS收集器顶不住要进行Full GC时开启内存碎片的合并整理过程，内存整理过程是无法并发的，碎片没了，但停顿时间变长了。CMS 也提供了参数 -XX:CMSFullGCsBeForeCompaction (默认0，即每次都进行内存整理) 来指定多少次 CMS 收集之后，进行一次压缩的Full GC。</li>
 </ul></li>
-<li>垃圾收集器配置代码总结
+
+<li><p>垃圾收集器配置代码总结</p>
 
 <ul>
 <li>配置新生代收集器，老年代收集器会自动配置上。
 <a href="http://blog.cuzz.site/2019/05/10/JVM面试/1558237229584.png"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/1558237229584.png" alt="1558237229584" /></a></li>
 </ul></li>
-<li>如何选择垃圾收集器
+
+<li><p>如何选择垃圾收集器</p>
 
 <ul>
 <li>单 CPU 或者小内存，单机程序：-XX:UseSerialGC</li>
@@ -1197,7 +1188,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>主要改变是 Eden、Survivor 和 Tenured 等内存区域不再是连续的，而是变成了一个个大小一样的 region，每个 region 从 1M 到 32M 不等，一个 region 有可能属于 Eden、Survivor 或者 Tenured 内存区域。</li>
 </ul></li>
 
-<li><p>特点</p>
+<li><p>特点（并发与并行，分代收集，空间整合，可预测停顿）</p>
 
 <ol>
 <li><p>G1 能充分利用多 CPU、多核环境硬件优势，尽量缩短 STW。</p></li>
@@ -1216,16 +1207,19 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <ul>
 <li><p>Region 区域化垃圾收集器：最大好处是化整为零，避免全内存扫描，只需要按照区域来进行扫描即可。</p></li>
 
-<li><h3 id="region">Region</h3></li>
-</ul>
+<li><p>Region</p>
 
-<p><a href="http://blog.cuzz.site/2019/05/10/JVM面试/5611237-f643066bd97c7703.png"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/5611237-f643066bd97c7703.png" alt="5611237-f643066bd97c7703" /></a>
-G1的内存结构和传统的内存空间划分有比较的不同。G1将内存划分成了多个大小相等的Region（默认是512K），Region逻辑上连续，物理内存地址不连续。同时每个Region被标记成E、S、O、H，分别表示Eden、Survivor、Old、Humongous。其中E、S属于年轻代，O与H属于老年代。
+<p><a href="http://blog.cuzz.site/2019/05/10/JVM面试/5611237-f643066bd97c7703.png"><img src="http://blog.cuzz.site/2019/05/10/JVM%E9%9D%A2%E8%AF%95/5611237-f643066bd97c7703.png" alt="5611237-f643066bd97c7703" /></a></p>
+
+<blockquote>
+<p>G1的内存结构和传统的内存空间划分有比较的不同。G1将内存划分成了多个大小相等的Region（默认是512K），Region逻辑上连续，物理内存地址不连续。同时每个Region被标记成E、S、O、H，分别表示Eden、Survivor、Old、Humongous。其中E、S属于年轻代，O与H属于老年代。
 H表示Humongous。从字面上就可以理解表示大的对象（下面简称H对象）。<strong>当分配的对象大于等于Region大小的一半</strong>的时候就会被认为是巨型对象。H对象默认分配在老年代，可以防止GC的时候大对象的内存拷贝。通过如果发现堆内存容不下H对象的时候，会触发一次GC操作。</p>
+</blockquote></li>
+</ul></li>
+
+<li><p>回收步骤</p>
 
 <ul>
-<li><p>回收步骤</p></li>
-
 <li><p>参看：<a href="https://www.jianshu.com/p/548c67aa1bc0">G1从入门到放弃</a></p></li>
 
 <li><p>四步过程
@@ -1269,20 +1263,18 @@ H表示Humongous。从字面上就可以理解表示大的对象（下面简称H
 
 <li><p>ps -ef 或者 jps 进一步定位，得知是一个怎么样的一个后台程序给我们惹事</p></li>
 
-<li><p>定位到具体的线程或代码</p></li>
-</ol>
+<li><p>定位到具体的线程或代码</p>
 
-<ul>
-<li>ps -mp 11111 -o THREAD,tid,time
+<blockquote>
+<p>ps -mp 11111 -o THREAD,tid,time</p>
 
-<ul>
-<li>-m 显示所有的线程</li>
-<li>-p 进程使用cpu的时间</li>
-<li>-o 该参数后是用户自定义格式</li>
-</ul></li>
-</ul>
+<p>-m 显示所有的线程</p>
 
-<ol>
+<p>-p 进程使用cpu的时间</p>
+
+<p>-o 该参数后是用户自定义格式</p>
+</blockquote></li>
+
 <li><p>将需要的线程 ID 转化为 16 进制格式</p></li>
 
 <li><p>jstat &lt;进程ID&gt; | grep &lt;线程ID(16进制)&gt; -A60</p></li>
@@ -1295,7 +1287,7 @@ H表示Humongous。从字面上就可以理解表示大的对象（下面简称H
 <h2 id="参考链接">参考链接</h2>
 
 <ul>
-<li><a href="https://time.geekbang.org/column/article/6970">强引用、软引用、弱引用、幻象引用有什么区别？(评论)</a></li>
+<li><a href="https://time.geekbang.org/column/article/6970">强引用、软引用、弱引用、幻象引用有什么区别？</a></li>
 <li><a href="https://www.jianshu.com/p/548c67aa1bc0">G1从入门到放弃</a></li>
 </ul>
 
