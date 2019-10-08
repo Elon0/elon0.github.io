@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-30T14:22:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-30T14:22:00&#43;08:00" />
-<meta itemprop="wordCount" content="8629">
+<meta itemprop="wordCount" content="8631">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-09-30 14:22 </span>
         
-          <span class="more-meta"> 约 8629 字 </span>
+          <span class="more-meta"> 约 8631 字 </span>
           <span class="more-meta"> 预计阅读 18 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -885,7 +885,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li><p><strong>总结</strong></p></li>
 </ul>
 
-<p>java提供了4中引用类型，在立即护手的时候，都有自己的特点。</p>
+<p>java提供了4种引用类型，在垃圾回收的时候，都有自己各自的特点。</p>
 
 <p>ReferenceQueue是用来配合引用工作的，没有ReferenceQueue一样可以运行。</p>
 
@@ -914,8 +914,7 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
 <li>执行垃圾收集的时间比例太大， 有效的运算量太小，默认情况下,，如果GC花费的时间超过 <strong>98%</strong>， 并且GC回收的内存少于 <strong>2%</strong>， JVM就会抛出这个错误。</li>
 </ul></li>
 
-<li><p>java.lang.OutOfMemoryError : Direct buffer memory</p></li>
-</ul>
+<li><p>java.lang.OutOfMemoryError : Direct buffer memory</p>
 
 <p>在NIO程序中经常出现。</p>
 
@@ -1008,10 +1007,10 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
   [GC (System.gc()) [PSYoungGen: 1315K-&gt;464K(2560K)] 1315K-&gt;472K(9728K), 0.0008907 secs] [Times: user=0.00 sys=0.00, real=0.01 secs] 
   [Full GC (System.gc()) [PSYoungGen: 464K-&gt;0K(2560K)] [ParOldGen: 8K-&gt;359K(7168K)] 472K-&gt;359K(9728K), [Metaspace: 3037K-&gt;3037K(1056768K)], 0.0060466 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
   Exception in thread &#34;main&#34; java.lang.OutOfMemoryError: Direct buffer memory
-  	at java.nio.Bits.reserveMemory(Bits.java:694)
-  	at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:123)
-  	at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:311)
-  	at com.cuzz.jvm.DirectBufferDemo.main(DirectBufferDemo.java:17)
+    at java.nio.Bits.reserveMemory(Bits.java:694)
+    at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:123)
+    at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:311)
+    at com.cuzz.jvm.DirectBufferDemo.main(DirectBufferDemo.java:17)
   Heap
    PSYoungGen      total 2560K, used 56K [0x00000000ffd00000, 0x0000000100000000, 0x0000000100000000)
     eden space 2048K, 2% used [0x00000000ffd00000,0x00000000ffd0e170,0x00000000fff00000)
@@ -1022,14 +1021,12 @@ java.lang.ref.PhantomReference@5451c3a8</pre></td></tr></table>
    Metaspace       used 3068K, capacity 4496K, committed 4864K, reserved 1056768K
     class space    used 336K, capacity 388K, committed 512K, reserved 1048576K</pre></td></tr></table>
 </div>
-</div>
-<ul>
-<li><p>java.lang.OutOfMemoryError : unable to create new native thread</p>
+</div></li>
 
-<ul>
-<li>创建线程数太多了</li>
-</ul></li>
+<li><p>java.lang.OutOfMemoryError : unable to create new native thread</p></li>
 </ul>
+
+<p>创建线程数太多了</p>
 
 <p>github图床</p>
 
