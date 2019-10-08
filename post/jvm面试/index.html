@@ -50,7 +50,7 @@
 
 <meta itemprop="datePublished" content="2019-09-30T14:22:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-09-30T14:22:00&#43;08:00" />
-<meta itemprop="wordCount" content="8629">
+<meta itemprop="wordCount" content="8636">
 
 
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-09-30 14:22 </span>
         
-          <span class="more-meta"> 约 8629 字 </span>
+          <span class="more-meta"> 约 8636 字 </span>
           <span class="more-meta"> 预计阅读 18 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -544,7 +544,7 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 <blockquote>
 <p>​ <strong>当系统内存充足时它 不会  被回收，</strong></p>
 
-<p>​ <strong>当系统内存充足时它 会       被回收。</strong></p>
+<p>​ <strong>当系统内存不足时它 会       被回收。</strong></p>
 </blockquote>
 
 <ul>
@@ -642,7 +642,7 @@ at com.cuzz.jvm.HelloGC.main(HelloGC.java:12)</pre></td></tr></table>
 [Full GC (Allocation Failure) [PSYoungGen: 0K-&gt;0K(2560K)] [ParOldGen: 358K-&gt;340K(7168K)] 358K-&gt;340K(9728K), [Metaspace: 3030K-&gt;3030K(1056768K)], 0.0115080 secs] [Times: user=0.01 sys=0.00, real=0.01 secs] 
 软引用：null
 Exception in thread &#34;main&#34; java.lang.OutOfMemoryError: Java heap space
-	at com.cuzz.jvm.SoftReferenceDemo.main(SoftReferenceDemo.java:21)
+at com.cuzz.jvm.SoftReferenceDemo.main(SoftReferenceDemo.java:21)
 Heap
 PSYoungGen      total 2560K, used 98K [0x00000000ffd00000, 0x0000000100000000, 0x0000000100000000)
 eden space 2048K, 4% used [0x00000000ffd00000,0x00000000ffd18978,0x00000000fff00000)
@@ -774,29 +774,35 @@ null</pre></td></tr></table>
 </span><span class="c1"></span>  <span class="p">}</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
-</div>
-<p>输出</p>
-<div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">java.lang.Object@27c170f0
+<pre class="chroma">    
+输出
+    </pre></td></tr></table>
+</div>
+</div>
+<p>java.lang.Object@27c170f0
 java.lang.Object@27c170f0
 null
-GC之后....
+GC之后&hellip;.
 null
 null
-java.lang.ref.WeakReference@5451c3a8</pre></td></tr></table>
+java.lang.ref.WeakReference@5451c3a8</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">    
+会把该对象的包装类即`weakReference`放入到`ReferenceQueue`里面，我们可以从queue中获取到相应的对象信息，同时进行额外的处理。比如反向操作，数据清理等。</pre></td></tr></table>
 </div>
-</div>
-<p>会把该对象的包装类即<code>weakReference</code>放入到<code>ReferenceQueue</code>里面，我们可以从queue中获取到相应的对象信息，同时进行额外的处理。比如反向操作，数据清理等。</p></li>
+</div></li>
 
 <li><p>虚引用</p>
 
