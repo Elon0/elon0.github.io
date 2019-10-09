@@ -6,10 +6,19 @@
     <description>Recent content on Elon的blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 04 Oct 2019 22:14:01 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2019 10:32:29 +0800</lastBuildDate>
     
 	<atom:link href="https://elon0.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>手撸算法</title>
+      <link>https://elon0.github.io/post/%E6%89%8B%E6%92%B8%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 09 Oct 2019 10:32:29 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/%E6%89%8B%E6%92%B8%E7%AE%97%E6%B3%95/</guid>
+      <description>手写二分查找递归、非递归 递归 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 private static int find(Comparable[] arr, int l, int r, Comparable target){ if( l &amp;gt; r ) return -1; int mid = l + (r-l)/2; if( arr[mid].compareTo(target) == 0 ) return mid; else if( arr[mid].compareTo(target) &amp;gt;</description>
+    </item>
     
     <item>
       <title>Java秒杀系统方案</title>

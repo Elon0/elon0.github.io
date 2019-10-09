@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>手撸算法 - Elon的blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Elon" /><meta name="description" content="手写二分查找递归、非递归 递归 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 private static int find(Comparable[] arr, int l, int r, Comparable target){ if( l &amp;gt; r ) return -1; int mid = l &#43; (r-l)/2; if( arr[mid].compareTo(target) == 0 ) return mid; else if( arr[mid].compareTo(target) &amp;gt;" /><meta name="keywords" content="Java, MySQL, Redis, Spring, Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.58.3 with theme even" />
+
+
+<link rel="canonical" href="https://elon0.github.io/post/%E6%89%8B%E6%92%B8%E7%AE%97%E6%B3%95/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link href="/dist/even.d314b528.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="手撸算法" />
+<meta property="og:description" content="手写二分查找递归、非递归 递归 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 private static int find(Comparable[] arr, int l, int r, Comparable target){ if( l &gt; r ) return -1; int mid = l &#43; (r-l)/2; if( arr[mid].compareTo(target) == 0 ) return mid; else if( arr[mid].compareTo(target) &gt;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://elon0.github.io/post/%E6%89%8B%E6%92%B8%E7%AE%97%E6%B3%95/" />
+<meta property="article:published_time" content="2019-10-09T10:32:29+08:00" />
+<meta property="article:modified_time" content="2019-10-09T10:32:29+08:00" />
+<meta itemprop="name" content="手撸算法">
+<meta itemprop="description" content="手写二分查找递归、非递归 递归 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 private static int find(Comparable[] arr, int l, int r, Comparable target){ if( l &gt; r ) return -1; int mid = l &#43; (r-l)/2; if( arr[mid].compareTo(target) == 0 ) return mid; else if( arr[mid].compareTo(target) &gt;">
+
+
+<meta itemprop="datePublished" content="2019-10-09T10:32:29&#43;08:00" />
+<meta itemprop="dateModified" content="2019-10-09T10:32:29&#43;08:00" />
+<meta itemprop="wordCount" content="1763">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="手撸算法"/>
+<meta name="twitter:description" content="手写二分查找递归、非递归 递归 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 private static int find(Comparable[] arr, int l, int r, Comparable target){ if( l &gt; r ) return -1; int mid = l &#43; (r-l)/2; if( arr[mid].compareTo(target) == 0 ) return mid; else if( arr[mid].compareTo(target) &gt;"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Elon的blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Elon的blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">手撸算法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-09 10:32 </span>
+        
+          <span class="more-meta"> 约 1763 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#手写二分查找递归-非递归">手写二分查找递归、非递归</a>
+<ul>
+<li><a href="#递归">递归</a></li>
+<li><a href="#非递归">非递归</a></li>
+</ul></li>
+<li><a href="#手写堆的用法-前k-中位数-优先队列">手写堆的用法：前k、中位数、优先队列</a>
+<ul>
+<li><a href="#前k">前K</a>
+<ul>
+<li><a href="#堆写法">堆写法</a></li>
+<li><a href="#快排写法">快排写法</a></li>
+</ul></li>
+<li><a href="#优先队列">优先队列</a></li>
+<li><a href="#中位数">中位数</a></li>
+</ul></li>
+<li><a href="#sql问题-group-by用法">sql问题：group by用法</a></li>
+<li><a href="#二叉树公共父节点">二叉树公共父节点</a>
+<ul>
+<li><a href="#递归-1">递归</a></li>
+<li><a href="#转化为路径">转化为路径</a></li>
+<li><a href="#使用父指针迭代">使用父指针迭代！</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h2 id="手写二分查找递归-非递归">手写二分查找递归、非递归</h2>
+
+<h3 id="递归">递归</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="nf">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="n">Comparable</span><span class="p">[]</span> <span class="nf">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">l</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">r</span><span class="p">,</span> <span class="n">Comparable</span> <span class="nf">target</span><span class="p">){</span>
+
+    <span class="k">if</span><span class="p">(</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">r</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="nf">mid</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="n">2</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="na">compareTo</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="n">0</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="na">compareTo</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="o">-</span><span class="n">1</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="n">1</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 二分查找法,在有序数组arr中,查找target
+</span><span class="c1">// 如果找到target,返回相应的索引index
+</span><span class="c1">// 如果没有找到target,返回-1
+</span><span class="c1"></span><span class="kd">public</span> <span class="nf">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="n">Comparable</span><span class="p">[]</span> <span class="nf">arr</span><span class="p">,</span> <span class="n">Comparable</span> <span class="nf">target</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">return</span> <span class="n">find</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="非递归">非递归</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 二分查找法,在有序数组arr中,查找target
+</span><span class="c1">// 如果找到target,返回相应的索引index
+</span><span class="c1">// 如果没有找到target,返回-1
+</span><span class="c1"></span><span class="kd">public</span> <span class="nf">static</span> <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="n">Comparable</span><span class="p">[]</span> <span class="nf">arr</span><span class="p">,</span> <span class="n">Comparable</span> <span class="nf">target</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// 在arr[l...r]之中查找target
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">l</span> <span class="o">=</span> <span class="n">0</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="p">){</span>
+
+        <span class="c1">//int mid = (l + r)/2;
+</span><span class="c1"></span>        <span class="c1">// 防止极端情况下的整形溢出，使用下面的逻辑求出mid
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="nf">mid</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="n">2</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="na">compareTo</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="n">0</span> <span class="p">)</span>
+            <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span> <span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">].</span><span class="na">compareTo</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="手写堆的用法-前k-中位数-优先队列">手写堆的用法：前k、中位数、优先队列</h2>
+
+<h3 id="前k">前K</h3>
+
+<h4 id="堆写法">堆写法</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">GetLeastNumbers_Solution</span><span class="p">(</span><span class="kt">int</span> <span class="p">[]</span> <span class="n">input</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">k</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="na">length</span><span class="o">==</span><span class="n">0</span> <span class="o">||</span> <span class="n">k</span><span class="o">&gt;</span><span class="n">input</span><span class="p">.</span><span class="na">length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">maxHeap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nf">int</span> <span class="n">compare</span><span class="p">(</span><span class="n">Integer</span> <span class="nf">o1</span><span class="p">,</span> <span class="n">Integer</span> <span class="nf">o2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">o2</span><span class="o">-</span><span class="n">o1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">num</span> <span class="o">:</span> <span class="n">input</span><span class="p">){</span>
+        <span class="n">maxHeap</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">maxHeap</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="o">&gt;</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">maxHeap</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">maxHeap</span><span class="p">);</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="快排写法">快排写法</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">GetLeastNumbers_Solution</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">k</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">k</span><span class="o">&lt;=</span><span class="n">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="n">findKthSmallest</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span><span class="n">k</span><span class="o">-</span><span class="n">1</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="nf">i</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">ret</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">findKthSmallest</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">k</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">l</span><span class="o">=</span><span class="n">0</span><span class="p">,</span><span class="n">h</span><span class="o">=</span><span class="n">nums</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">l</span><span class="o">&lt;</span><span class="n">h</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="nf">j</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">h</span><span class="o">=</span><span class="n">j</span><span class="o">-</span><span class="n">1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="o">+</span><span class="n">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">private</span> <span class="nf">int</span> <span class="n">partition</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">l</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">h</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">i</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="n">1</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">l</span><span class="p">];</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">h</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">v</span><span class="p">)</span> <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">j</span><span class="o">&gt;=</span><span class="n">l</span><span class="o">+</span><span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="n">v</span><span class="p">)</span> <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">j</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">private</span> <span class="nf">void</span> <span class="n">swap</span><span class="p">(</span><span class="kt">int</span><span class="p">[]</span> <span class="nf">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">i</span><span class="p">,</span> <span class="kt">int</span> <span class="nf">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="nf">t</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+    <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="优先队列">优先队列</h3>
+
+<h3 id="中位数">中位数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/* 大顶堆，存储左半边元素 */</span>
+<span class="kd">private</span> <span class="nf">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">(((</span><span class="n">o1</span><span class="p">,</span> <span class="n">o2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o2</span><span class="o">-</span><span class="n">o1</span><span class="p">));</span>
+<span class="cm">/* 小顶堆，存储右半边元素，并且右半边元素都大于左半边 */</span>
+<span class="kd">private</span> <span class="nf">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="cm">/* 当前数据流读入的元素个数 */</span>
+<span class="kd">private</span> <span class="nf">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">0</span><span class="p">;</span>
+<span class="kd">public</span> <span class="nf">void</span> <span class="n">Insert</span><span class="p">(</span><span class="n">Integer</span> <span class="nf">num</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* 插入要保证两个堆存于平衡状态 */</span>
+    <span class="k">if</span><span class="p">((</span><span class="n">N</span><span class="o">&amp;</span><span class="n">1</span><span class="p">)</span><span class="o">==</span><span class="n">0</span><span class="p">){</span>
+        <span class="cm">/* N 为偶数的情况下插入到右半边。
+</span><span class="cm">         * 因为右半边元素都要大于左半边，但是新插入的元素不一定比左半边元素来的大，
+</span><span class="cm">         * 因此需要先将元素插入左半边，然后利用左半边为大顶堆的特点，取出堆顶元素即为最大元素，此时插入右半边 */</span>
+        <span class="n">left</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+        <span class="n">right</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">left</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">right</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+        <span class="n">left</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">right</span><span class="p">.</span><span class="na">poll</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="n">N</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="nf">Double</span> <span class="n">GetMedian</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">((</span><span class="n">N</span><span class="o">&amp;</span><span class="n">1</span><span class="p">)</span><span class="o">==</span><span class="n">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">left</span><span class="p">.</span><span class="na">peek</span><span class="p">()</span><span class="o">+</span><span class="n">right</span><span class="p">.</span><span class="na">peek</span><span class="p">())</span><span class="o">/</span><span class="n">2</span><span class="p">.</span><span class="na">0</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="n">right</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="sql问题-group-by用法">sql问题：group by用法</h2>
+
+<p>group by的作用是对by后面的类别进行分组，这个类别可以是一个也可以是多个，此外group by是先排序后分组。然后select中的东西必须是group by后面的内容，或者是聚合函数，否则就会报错，理解如下：
+类别列被压缩成一个了，而其他列还是正常。这样一来，如果再select中还有其他列，比如姓名字段，那么就会报错，因为类别只有一个，而姓名有好多个，无法成表，于是报错。
+<a href="https://www.cnblogs.com/rainman/archive/2013/05/01/3053703.html">SQL中Group By的使用</a></p>
+
+<h2 id="二叉树公共父节点">二叉树公共父节点</h2>
+
+<blockquote>
+<p>1 若为二叉搜索树，因为他是排序过的，位于左子树的节点都比父节点小，位于右子树的节点都比父节点大，我们只需要从树的根节点开始和两个输入的节点进行比较。若当前节点比两个都大，则LCA在左子树中，下次遍历左子树，若当前节点比两个都小，则LCA在右子树中，下次遍历右子树，找第一个在两个输入节点值之间的节点就是LCA。</p>
+
+<p>2 不是二叉搜索树，若有指向父节点的指针，转化为求两个链表的第一个共同节点。</p>
+
+<p>3 若没有指向父节点的指针，</p>
+</blockquote>
+
+<h3 id="递归-1">递归</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">TreeNode</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">p</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">q</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// LCA 问题
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="n">p</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">TreeNode</span> <span class="nf">left</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+    <span class="n">TreeNode</span> <span class="nf">right</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">right</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="转化为路径">转化为路径</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//转化为路径
+</span><span class="c1"></span><span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">path1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">path2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="kd">public</span> <span class="nf">TreeNode</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">p</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">q</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">GetLastCommomParent</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="nf">TreeNode</span> <span class="n">GetLastCommomParent</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">p</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">q</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span> <span class="o">||</span> <span class="n">p</span><span class="o">==</span><span class="kc">null</span> <span class="o">||</span> <span class="n">q</span><span class="o">==</span><span class="kc">null</span><span class="p">)</span>   <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="n">GetNodePath</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">path1</span><span class="p">);</span>
+    <span class="n">GetNodePath</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">path2</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">GetLastCommomNode</span><span class="p">(</span><span class="n">path1</span><span class="p">,</span> <span class="n">path2</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kd">public</span> <span class="nf">boolean</span> <span class="n">GetNodePath</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">p</span><span class="p">,</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">path</span><span class="p">){</span>
+    <span class="n">path</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="n">p</span><span class="p">)</span>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kt">boolean</span> <span class="nf">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">found</span><span class="p">)</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="n">GetNodePath</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">found</span><span class="p">)</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="n">GetNodePath</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">found</span><span class="p">)</span>
+        <span class="n">path</span><span class="p">.</span><span class="na">pollLast</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">found</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">public</span> <span class="nf">TreeNode</span> <span class="n">GetLastCommomNode</span><span class="p">(</span><span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">path1</span><span class="p">,</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">path2</span><span class="p">){</span>
+    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">iter1</span> <span class="o">=</span> <span class="n">path1</span><span class="p">.</span><span class="na">iterator</span><span class="p">();</span>
+    <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">iter2</span> <span class="o">=</span> <span class="n">path2</span><span class="p">.</span><span class="na">iterator</span><span class="p">();</span>
+    <span class="n">TreeNode</span> <span class="nf">last</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">iter1</span><span class="p">.</span><span class="na">hasNext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">iter2</span><span class="p">.</span><span class="na">hasNext</span><span class="p">()){</span>
+        <span class="n">TreeNode</span> <span class="nf">a</span> <span class="o">=</span> <span class="n">iter1</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+        <span class="n">TreeNode</span> <span class="nf">b</span> <span class="o">=</span> <span class="n">iter2</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="na">val</span><span class="o">==</span><span class="n">b</span><span class="p">.</span><span class="na">val</span><span class="p">)</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">last</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="使用父指针迭代">使用父指针迭代！</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//使用父指针迭代
+</span><span class="c1">//如果每个节点都有父指针，那么我们可以从 p 和 q 返回以获取它们的祖先。在这个遍历过程中，我们得到的第一个公共节点是 LCA 节点。我们可以在遍历树时将父指针保存在字典中。
+</span><span class="c1"></span><span class="kd">public</span> <span class="nf">TreeNode</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span> <span class="nf">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">p</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="nf">q</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">parent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="n">parent</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    <span class="n">queue</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">parent</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">parent</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">q</span><span class="p">)){</span>
+        <span class="n">TreeNode</span> <span class="nf">node</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+            <span class="n">parent</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">node</span><span class="p">);</span>
+            <span class="n">queue</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+            <span class="n">parent</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">node</span><span class="p">);</span>
+            <span class="n">queue</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="nf">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+        <span class="n">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">parent</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">set</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">q</span><span class="p">)){</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">parent</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<script src="https://utteranc.es/client.js"
+        repo="elon0/comment"
+        issue-term="pathname"
+        label="💬"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Elon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-09 10:32
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/java%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E6%96%B9%E6%A1%88/">
+            <span class="next-text nav-default">Java秒杀系统方案</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Elon0" class="iconfont icon-github" title="github"></a>
+  <a href="https://elon0.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Elon</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
