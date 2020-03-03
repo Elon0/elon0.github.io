@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Elon的blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 09 Oct 2019 10:32:29 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Oct 2019 09:35:50 +0800</lastBuildDate>
     
 	<atom:link href="https://elon0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基础知识</title>
+      <link>https://elon0.github.io/post/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Thu, 10 Oct 2019 09:35:50 +0800</pubDate>
+      
+      <guid>https://elon0.github.io/post/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
+      <description>计算机网络 1. 输入URL到页面加载完成 1.从输入 URL 到页面加载完成，中间发生了什么（基本必问的问题了，因为这个问题能考察对计算机网络整体的掌握程</description>
+    </item>
     
     <item>
       <title>手撸算法</title>
