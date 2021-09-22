@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.58.3 with theme even" />
+<meta name="generator" content="Hugo 0.73.0 with theme even" />
 
 
 <link rel="canonical" href="https://elon0.github.io/post/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" />
@@ -46,16 +46,13 @@
 <meta property="article:modified_time" content="2019-10-10T09:35:50+08:00" />
 <meta itemprop="name" content="基础知识">
 <meta itemprop="description" content="计算机网络 1. 输入URL到页面加载完成 1.从输入 URL 到页面加载完成，中间发生了什么（基本必问的问题了，因为这个问题能考察对计算机网络整体的掌握程">
-
-
 <meta itemprop="datePublished" content="2019-10-10T09:35:50&#43;08:00" />
 <meta itemprop="dateModified" content="2019-10-10T09:35:50&#43;08:00" />
 <meta itemprop="wordCount" content="3030">
 
 
 
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="基础知识"/>
 <meta name="twitter:description" content="计算机网络 1. 输入URL到页面加载完成 1.从输入 URL 到页面加载完成，中间发生了什么（基本必问的问题了，因为这个问题能考察对计算机网络整体的掌握程"/>
 
@@ -139,48 +136,25 @@
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#计算机网络">计算机网络</a>
-<ul>
-<li>
-<ul>
-<li><a href="#1-输入url到页面加载完成">1. 输入URL到页面加载完成</a></li>
-<li><a href="#2-多进程多线程浏览器">2. 多进程多线程浏览器</a></li>
-<li><a href="#3-协议栈各层协议">3. 协议栈各层协议</a></li>
-<li><a href="#应用层详细">应用层详细：</a></li>
-<li><a href="#4-http">4.HTTP</a>
-<ul>
-<li><a href="#请求报文与响应报文"><strong>请求报文与响应报文</strong></a></li>
-<li><a href="#http方法method">HTTP方法Method</a></li>
-<li><a href="#状态码">状态码</a>
-<ul>
-<li><a href="#1xx-信息">1XX 信息</a></li>
-<li><a href="#2xx-成功">2XX 成功</a></li>
-<li><a href="#3xx-重定向">3XX 重定向</a></li>
-<li><a href="#4xx-客户端错误">4XX 客户端错误</a></li>
-<li><a href="#5xx-服务器错误">5XX 服务器错误</a></li>
-</ul></li>
-<li><a href="#http1-1-与-http1-0-的区别">http1.1 与 http1.0 的区别</a></li>
-<li><a href="#数字签名-digital-signature">数字签名（Digital Signature）</a></li>
-<li><a href="#数字证书-certificate-authority">数字证书（Certificate Authority）</a></li>
-<li><a href="#https采用的加密方式">HTTPS采用的加密方式</a></li>
-</ul></li>
-<li><a href="#5-单拎出来的缓存问题-结合状态码-304-可能问到-相关头字段-if-modified-since-和-last-modified-if-none-match-和-etag-它们的区别等">5. 单拎出来的缓存问题，结合状态码 304 可能问到，相关头字段，If-Modified-Since 和 Last-Modified，If-None-Match 和 ETag，它们的区别等；</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-输入url到页面加载完成">1. 输入URL到页面加载完成</a></li>
+        <li><a href="#2-多进程多线程浏览器">2. 多进程多线程浏览器</a></li>
+        <li><a href="#3-协议栈各层协议">3. 协议栈各层协议</a></li>
+        <li><a href="#应用层详细">应用层详细：</a></li>
+        <li><a href="#4http">4.HTTP</a></li>
+        <li><a href="#5-单拎出来的缓存问题结合状态码-304-可能问到相关头字段if-modified-since-和-last-modifiedif-none-match-和-etag它们的区别等">5. 单拎出来的缓存问题，结合状态码 304 可能问到，相关头字段，If-Modified-Since 和 Last-Modified，If-None-Match 和 ETag，它们的区别等；</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="计算机网络">计算机网络</h1>
-
+      <h1 id="计算机网络">计算机网络</h1>
 <h3 id="1-输入url到页面加载完成">1. 输入URL到页面加载完成</h3>
-
 <p>1.从输入 URL 到页面加载完成，中间发生了什么（基本必问的问题了，因为这个问题能考察对计算机网络整体的掌握程度，以及方便面试官扩展问题）；</p>
-
 <blockquote>
 <ol>
 <li>DNS解析</li>
@@ -190,47 +164,28 @@
 <li>浏览器解析渲染页面</li>
 <li>连接结束</li>
 </ol>
-
 <p>五层因特尔协议栈其实就是： 1.应用层(dns,http) DNS解析成IP并发送http请求 2.传输层(tcp,udp) 建立tcp连接(三次握手) 3.网络层(IP,ARP) IP寻址 4.数据链路层(PPP) 封装成帧 5.物理层(利用物理介质传输比特流) 物理传输(然后传输的时候通过双绞线，电磁波等各种介质)</p>
 </blockquote>
-
 <h3 id="2-多进程多线程浏览器">2. 多进程多线程浏览器</h3>
-
 <p>2.多进程多线程浏览器（比如 Chrome），主控进程，插件进程，GPU进程，每个 tab 一个进程，tab 进程内有网络请求线程等；</p>
-
 <blockquote>
 <p><a href="https://www.2cto.com/database/201803/734417.html"><strong>浏览器进程/线程模型及JS运行机制实例讲解（包括状态码等等很多）</strong></a></p>
-
 <p>浏览器是多进程的，有一个主控进程，以及每一个tab页面都会新开一个进程(某些情况下多个tab会合并进程)。</p>
-
 <p>进程可能包括主控进程，插件进程，GPU，tab页(浏览器内核)等等。</p>
-
 <p>Browser进程：浏览器的主进程(负责协调、主控)，只有一个</p>
-
 <p>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</p>
-
 <p>GPU进程：最多一个，用于3D绘制</p>
-
 <p>浏览器渲染进程(内核)：默认每个Tab页面一个进程，互不影响，控制页面渲染，脚本执行，事件处理等(有时候会优化，如多个空白tab会合并成一个进程)</p>
 </blockquote>
-
 <h3 id="3-协议栈各层协议">3. 协议栈各层协议</h3>
-
 <p>3.协议栈各层各说一些协议（记一下常用的）；</p>
-
 <blockquote>
 <p>应用层：HTTP, FTP, SMTP, DNS, TELNET</p>
-
 <p>传输层：TCP, UDP</p>
-
 <p>网络层：IP, ICMP, ARP, RARP</p>
-
 <p>数据链路层：PPP,</p>
-
 <p>物理层：IEEE 802.1A</p>
-
 <h3 id="应用层详细">应用层详细：</h3>
-
 <p>HTTP：超文本传输协议, 基于TCP, 使用80号端口, 是用于从www服务器传输超文本到本地浏览器的传输协议.
 SMTP：简单邮件传输协议, 基于TCP, 使用25号端口, 是一组用于由源地址到目的地址传送邮件的规则, 用来控制信件的发送、中转.
 FTP：文件传输协议, 基于TCP, 一般上传下载用FTP服务, 数据端口是20号, 控制端口是21号.
@@ -238,85 +193,50 @@ TELNET：远程登录协议, 基于TCP, 使用23号端口, 是Internet远程登�
 DNS：域名解析, 基于UDP, 使用53号端口, 提供域名到IP地址之间的转换. 同时使用tcp 53端口
 SSH：安全外壳协议, 基于TCP, 使用22号端口, 为建立在应用层和传输层基础上的安全协议. SSH 是目前较可靠, 专为远程登录会话和其他网络服务提供安全性的协议.</p>
 </blockquote>
-
-<h3 id="4-http">4.HTTP</h3>
-
+<h3 id="4http">4.HTTP</h3>
 <p>4.HTTP（基本描述，Method，协议版本及新版本特点，请求响应报文结构，常用请求头字段，常见响应状态码（每类记几个），RFC规范（知道这个词儿是啥就行了）等）；</p>
-
 <h4 id="请求报文与响应报文"><strong>请求报文与响应报文</strong></h4>
-
 <blockquote>
 <p>HTTP请求报文主要由请求行、请求头部、请求正文3部分组成</p>
-
 <p>HTTP响应报文主要由状态行、响应头部、响应正文3部分组成</p>
-
 <p>（在头部和正文直接都要加一个空行）</p>
-
 <p>请求行：GET /doc/test.html HTTP/1.1（http方法，url， http版本）</p>
-
-<p>状态行：HTTP/1.1 200 OK   (http版本，状态码，状态码描述)</p>
+<p>状态行：HTTP/1.1 200 OK	(http版本，状态码，状态码描述)</p>
 </blockquote>
-
 <h4 id="http方法method">HTTP方法Method</h4>
-
 <blockquote>
-<p>GET   获取资源</p>
-
-<p>POST  主要用来传输数据，而GET主要用来获取资源</p>
-
-<p>PUT   主要用来上传文件</p>
-
-<p>DELETE    用来删除文件</p>
-
-<p>TRACE 主要用于测试或诊断</p>
-
-<p>HEAD  和GET类似，但不返回响应正文。主要用于确认URL的有效性等。</p>
-
-<p>OPTIONS   查询支持的HTTP请求方法，会返回<code>allow:GET, POST, HEAD, OPTIONS</code>这样的内容。</p>
-
-<p>CONNECT   。。。</p>
+<p>GET	获取资源</p>
+<p>POST	主要用来传输数据，而GET主要用来获取资源</p>
+<p>PUT	主要用来上传文件</p>
+<p>DELETE	用来删除文件</p>
+<p>TRACE	主要用于测试或诊断</p>
+<p>HEAD	和GET类似，但不返回响应正文。主要用于确认URL的有效性等。</p>
+<p>OPTIONS	查询支持的HTTP请求方法，会返回<code>allow:GET, POST, HEAD, OPTIONS</code>这样的内容。</p>
+<p>CONNECT	。。。</p>
 </blockquote>
-
 <h4 id="状态码">状态码</h4>
-
 <h5 id="1xx-信息">1XX 信息</h5>
-
 <p>100 Continue :表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应。</p>
-
 <h5 id="2xx-成功">2XX 成功</h5>
-
 <p>200 OK
 204 No Content :请求已经成功处理，但是返回的响应报文不包含实体的主体部分。一般在只需要从客户端 往服务器发送信息，而不需要返回数据时使用。
 206 Partial Content :表示客户端进行了范围请求，响应报文包含由 Content-Range 指定范围的实体内容。</p>
-
 <h5 id="3xx-重定向">3XX 重定向</h5>
-
 <p><strong>301 Moved Permanently :永久性重定向</strong>
 <strong>302 Found :临时性重定向</strong></p>
-
 <h5 id="4xx-客户端错误">4XX 客户端错误</h5>
-
 <p>400 Bad Request :请求报文中存在语法错误。<strong>服务器不理解请求的语法</strong>
 401 Unauthorized :该状态码表示发送的请求需要有认证信息(BASIC 认证、DIGEST 认证)。如果之前已进 行过一次请求，则表示用户认证失败。
 403 Forbidden :请求被拒绝。
 404 Not Found</p>
-
 <h5 id="5xx-服务器错误">5XX 服务器错误</h5>
-
 <p>500 Internal Server Error :服务器正在执行请求时发生错误。</p>
-
 <p>503 Service Unavailable :服务器暂时处于超负载或正在进行<strong>停机维护</strong>，现在无法处理请求。</p>
-
-<h4 id="http1-1-与-http1-0-的区别">http1.1 与 http1.0 的区别</h4>
-
+<h4 id="http11-与-http10-的区别">http1.1 与 http1.0 的区别</h4>
 <p>1.http1.0 需要 keep-alive 参数来告知服务器要建立一个长连接，而 http1.1 默认支持长连接</p>
-
 <p>2.HTTP 1.1 支持只发送 header 信息(不带任何 body 信息)，如果服务器认为客户端有权限 请求服务器，则返回 100，否则返回 401。客户端如果接受到 100，才开始把请求 body 发 送到服务器。这样当服务器返回 401 的时候，客户端就可以不用发送请求 body 了，节约了 带宽。</p>
-
 <p>3.host域 http1.0请求头没有host域，http1.1才支持这个参数。</p>
-
 <p>4.带宽优化及网络连接的使用，HTTP1.0 中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的 一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，<strong>HTTP1.1 则在请求头引入了 range头域，它允许只请求资源的某个部分</strong>，即返回码是 206(Partial Content)，这样就方便了开发者自由的 选择以便于充分利用带宽和连接。</p>
-
 <blockquote>
 <p>默认是长连接
 支持流水线
@@ -326,41 +246,22 @@ SSH：安全外壳协议, 基于TCP, 使用22号端口, 为建立在应用层和
 支持分块传输编码
 新增缓存处理指令 max-age</p>
 </blockquote>
-
-<h4 id="数字签名-digital-signature">数字签名（Digital Signature）</h4>
-
+<h4 id="数字签名digital-signature">数字签名（Digital Signature）</h4>
 <p>数字签名就是用于验证传输的内容是不是真实服务器发送的数据，发送的数据有没有被篡改过，是非对称加密的一种应用场景。不过他是反过来用<strong>私钥加密，公钥解密</strong>。</p>
-
 <blockquote>
 <p>第一步：服务端把报文经过Hash处理后生成摘要信息Digest，摘要信息使用私钥private-key加密之后就生成签名，服务器把签名连同报文一起发送给客户端。（报文Hash处理私钥加密生成签名，然后把签名和报文一起发送给客户端）</p>
-
 <p>第二步：客户端接收到数据后，把签名提取出来用public-key解密，如果能正常的解密出来Digest2，那么就能确认是对方发的。</p>
-
 <p>第三步：客户端把报文Text提取出来做同样的Hash处理，得到的摘要信息Digest1，再与之前解密出来的Digest2对比，如果两者相等，就表示内容没有被篡改，否则内容就是被人改过了。因为只要文本内容哪怕有任何一点点改动都会Hash出一个完全不一样的摘要信息出来。</p>
 </blockquote>
-
-<h4 id="数字证书-certificate-authority">数字证书（Certificate Authority）</h4>
-
+<h4 id="数字证书certificate-authority">数字证书（Certificate Authority）</h4>
 <p>证书里包含真实服务器的公匙和网站的一些其他信息，数字证书机构用自己的私钥加密后发给浏览器，浏览器使用数字证书机构的公钥解密后得到真实服务器公匙。</p>
-
 <p><a href="http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html">数字签名是什么？</a></p>
-
 <h4 id="https采用的加密方式">HTTPS采用的加密方式</h4>
-
 <p>HTTPS 采用混合的加密机制，使用非对称密钥加密用于传输对称密钥来保证传输过程的安全性，之后使用对称密钥加密进行通信来保证通信过程的效率。</p>
-
-<h3 id="5-单拎出来的缓存问题-结合状态码-304-可能问到-相关头字段-if-modified-since-和-last-modified-if-none-match-和-etag-它们的区别等">5. 单拎出来的缓存问题，结合状态码 304 可能问到，相关头字段，If-Modified-Since 和 Last-Modified，If-None-Match 和 ETag，它们的区别等；</h3>
-
+<h3 id="5-单拎出来的缓存问题结合状态码-304-可能问到相关头字段if-modified-since-和-last-modifiedif-none-match-和-etag它们的区别等">5. 单拎出来的缓存问题，结合状态码 304 可能问到，相关头字段，If-Modified-Since 和 Last-Modified，If-None-Match 和 ETag，它们的区别等；</h3>
 <p>如果请求报文首部包含一些条件，例如:If-Match，If-Modified-Since，If-None- Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。</p>
-
-<script src="https://utteranc.es/client.js"
-        repo="elon0/comment"
-        issue-term="pathname"
-        label="💬"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 
     </div>
 
@@ -426,7 +327,7 @@ SSH：安全外壳协议, 基于TCP, 使用22号端口, 为建立在应用层和
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
